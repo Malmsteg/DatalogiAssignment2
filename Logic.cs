@@ -76,14 +76,5 @@ namespace Assignment2
             Console.Clear();
             return result;
         }
-
-
-        public static string[] SplitText(string text)
-        {
-            string[] result = text.Split();
-
-            return result;
-
-        }
     }
 }
