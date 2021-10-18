@@ -6,8 +6,6 @@ namespace Assignment2
     {
         static void Main(string[] args)
         {
-            string[] MainArgs = args;
-
             Logic.Start();
         }
     }
