@@ -37,7 +37,7 @@ namespace Assignment2
             {
                 Console.WriteLine("Please provide an exact filepath for .txt file you want to read into the program:\n\n");
                 string path = Console.ReadLine();
-                if (String.IsNullOrEmpty(path) || path.Length < 4 || !path.Substring(path.Length - 4).Equals(".txt") || !File.Exists(path) || new FileInfo(path).Length == 0)
+                if (String.IsNullOrEmpty(path) || path.Length < 4 || !path.Substring(path[^4]).Equals(".txt") || !File.Exists(path) || new FileInfo(path).Length == 0)
                 {
                     Console.WriteLine("Please enter a valid, non-empty text file.");
                 }
@@ -62,13 +62,13 @@ namespace Assignment2
         public static (string filname, string text) ReadDocument(string path)
         {
             (string filename, string text) result = new();
-            if (String.IsNullOrEmpty(path) || path.Length < 4 || !path.Substring(path.Length - 4).Equals(".txt") || !File.Exists(path) || new FileInfo(path).Length == 0)
+            if (String.IsNullOrEmpty(path) || path.Length < 4 || !path.Substring(path[^4]).Equals(".txt") || !File.Exists(path) || new FileInfo(path).Length == 0)
             {
                 Console.WriteLine($"File {path} was not a valid .txt file.");
             }
             else
             {
-                result = (path, System.IO.File.ReadAllText(path));
+                result = (path, File.ReadAllText(path));
                 Console.WriteLine(path.Substring(path.LastIndexOf("\\") + 1) + " has been added to the list.");
             }
             Console.WriteLine("\n\nPress enter to continue");
