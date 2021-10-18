@@ -6,20 +6,22 @@ public static class Logic
 {
     public static void Start()
     {
-        List<(string filename, string text)> test = ReadDocuments();
-        Console.WriteLine(test[0].text);
+        var test = ReadDocuments();
+        List<(string filename, string text)> texts = new();
+        texts.Add(test);
+        Console.WriteLine(texts[0].filename);
+        Console.WriteLine(texts[0].text);
     }
 
     /// <summary>
-    /// Reads amount number of .txt-files. Returns a List tuple of filenames and file contents.
+    /// Reads amount number of .txt-files. Returns a tuple of filenames and file contents.
     /// </summary>
-    /// <param name="amount">The number of files the method should read</param>
     /// <returns>A tuple of filenames and their contents</returns>
-    public static List<(string filnames, string texts)> ReadDocuments(int amount = 1)
+    public static (string filname, string text) ReadDocuments()
     {
-        List<(string filenames, string texts)> result = new();
-        int i = 0;
-        while (i < amount)
+        (string filename, string text) result = new();
+        bool ok = false;
+        while (!ok)
         {
             Console.WriteLine("Please provide an exact filepath for .txt file you want to read into the program:\n\n");
             string path = Console.ReadLine();
@@ -29,8 +31,8 @@ public static class Logic
             }
             else
             {
-                result.Add((path, System.IO.File.ReadAllText(path)));
-                i++;
+                result = (path, System.IO.File.ReadAllText(path));
+                ok = true;
                 Console.WriteLine(path.Substring(path.LastIndexOf("\\") + 1) + " has been added to the list.");
             }
             Console.WriteLine("\n\nPress enter to continue");
