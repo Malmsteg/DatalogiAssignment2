@@ -81,6 +81,8 @@ namespace Assignment2
         }
         /// <summary>
         /// Searches for a word in the loaded documents. Returns the number of matches in the documents, and in descending order.
+        /// Variabler för tidskomplexitet är: n1 (antalet dokument), n2 (summan av innehållet av alla dokument).
+        /// Tidskomplexiteten är O(2n1 + n2), vilket kan förkortas till O(n)
         /// </summary>
         /// <param name="searchString">The string to search for</param>
         /// <returns>A list of files and matches in descending order</returns>
