@@ -5,7 +5,12 @@ namespace DatalogiAssignment2
 {
     public static class Logic
     {
+        //TODO: Save search results in a non-linear or abstract data structure
+        //TODO: Test switch statements, that they work properly
+        //TODO: When above is resolved, remove method test in this file
+        //TODO: 
         static List<(string filename, string text)> Texts = new();
+        static List<(string filname, int count)> searchResult = new();
         public static void Start()
         {
             string[] arguments = Environment.GetCommandLineArgs();
@@ -22,6 +27,82 @@ namespace DatalogiAssignment2
                 Console.WriteLine(item.text);
             }
             Console.ReadLine();
+
+            List<string> menuOptions = new()
+            {
+                "Läs in ett txt-dokument i programmet",
+                "Sök efter ett antal förekomster av ord i texter.",
+                "Sortera orden i dokumenten i bokstavsordning.",
+                "Skriv ut de X antal första orden",
+                "Avsluta programmet"
+            };
+            Menu menu = new Menu(menuOptions);
+
+            bool exit = false;
+            while (!exit)
+            {
+                Console.Clear();
+                menu.CreateMenu();
+                switch (menu.Choice)
+                {
+                    case 1:
+                        Texts.Add(ReadDocument());
+                        Console.ReadLine();
+                        break;
+                    case 2:
+                        if (Texts.Count > 0)
+                        {
+                            SearchAndPrint();
+                            Console.ReadLine();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Please input at least one .txt-file before using this function.");
+                        }
+                        break;
+                    case 3:
+                        if (Texts.Count > 0)
+                        {
+                            foreach (var item in Texts)
+                            {
+                                Algorithm.Sort(SplitStrings(item.text));
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Please input at least one .txt-file before using this function.");
+                        }
+                        Console.ReadLine();
+                        break;
+                    case 4:
+                        if (Texts.Count > 0)
+                        {
+                            int count = InputInt();
+                            foreach (var item in Texts)
+                            {
+                                Console.Clear();
+                                Console.WriteLine("The first " + count + " words in " + item.filename.Substring(item.filename.LastIndexOf("\\") + 1) + "\n");
+                                var temp = SplitStrings(item.text);
+                                for (int i = 0; i < count || i < temp.Length; i++)
+                                {
+                                    Console.Write(temp[i] + " ");
+                                }
+                                Console.WriteLine("\n\n");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Please input at least one .txt-file before using this function.");
+                        }
+                        Console.ReadLine();
+                        break;
+                    case 5:
+                        exit = true;
+                        Console.WriteLine("Thank you for using this program! :-)");
+                        Console.ReadLine();
+                        break;
+                }
+            }
             // Avkommentera koden nedan för att köra metoden ReadDocument 3 gånger, och sedan lista i ordning efter söktermen "och"
             // test();
             // Console.ReadLine();
@@ -46,7 +127,7 @@ namespace DatalogiAssignment2
                 }
                 else
                 {
-                    result = (path, System.IO.File.ReadAllText(path));
+                    result = (path, File.ReadAllText(path));
                     ok = true;
                     Console.WriteLine(path.Substring(path.LastIndexOf("\\") + 1) + " has been added to the list.");
                 }
@@ -79,32 +160,70 @@ namespace DatalogiAssignment2
             Console.Clear();
             return result;
         }
-        /// <summary>
-        /// Searches for a word in the loaded documents. Returns the number of matches in the documents, and in descending order.
-        /// Variabler för tidskomplexitet är: n1 (antalet dokument), n2 (summan av innehållet av alla dokument).
-        /// Tidskomplexiteten är O(2n1 + n2), vilket kan förkortas till O(n)
-        /// </summary>
-        /// <param name="searchString">The string to search for</param>
-        /// <returns>A list of files and matches in descending order</returns>
-        public static List<(string filename, int count)> Search(string searchString)
-        {
-            List<(string filename, int count)> result = new();
 
-            foreach (var item in Texts)
+        /// <summary>
+        /// This method removes unnecessary characters.
+        /// </summary>
+        /// <param name="text"><c>text</c> is the string to remove characters
+        /// from.</param>
+        /// <returns>The splitted string.</returns>
+        public static string[] SplitStrings(string text)
+        {
+            string[] splittedString = text.Split(
+                new string[] {",", ".", " ", ";", ":", "\"", "(", ")", "[", "]",
+                "-", Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries
+                );
+            return splittedString;
+        }
+
+
+        /// <summary>
+        /// Prompts user for a single word input.
+        /// </summary>
+        /// <returns>A string consisting of a single word.</returns>
+        public static string Input()
+        {
+            string result;
+
+            do
             {
-                int count = 0;
-                string name = item.filename.Substring(item.filename.LastIndexOf("\\") + 1);
-                string[] arr = item.text.Split(" ");
-                for (int i = 0; i < arr.Length; i++)
-                {
-                    if (arr[i].Equals(searchString))
-                    {
-                        count++;
-                    }
-                }
-                result.Add((name, count));
+                Console.WriteLine("Please enter a single word");
+                result = Console.ReadLine().Trim();
+            } while (string.IsNullOrEmpty(result) || string.IsNullOrWhiteSpace(result));
+
+            return result.Split(" ")[0];
+        }
+
+
+
+        public static void SearchAndPrint()
+        {
+            string searchWord = Input();
+            var temp = Algorithm.Search(searchWord, Texts);
+            foreach (var item in temp)
+            {
+                Console.WriteLine(item);
+                searchResult.Add(item);
             }
-            result.Sort((x, y) => y.count.CompareTo(x.count));
+        }
+
+        public static int InputInt()
+        {
+            int result;
+            bool ok = false;
+
+            do
+            {
+                string input = Console.ReadLine();
+                if (!Int32.TryParse(input, out result) || result < 1)
+                {
+                    Console.WriteLine("Invalid input. Enter a number greater than 0");
+                }
+                else
+                {
+                    ok = true;
+                }
+            } while (!ok);
             return result;
         }
 
@@ -118,7 +237,7 @@ namespace DatalogiAssignment2
             {
                 Texts.Add(ReadDocument());
             }
-            var list = Search("och");
+            var list = Algorithm.Search("till", Texts);
 
             foreach (var item in list)
             {
