@@ -7,7 +7,7 @@ namespace DatalogiAssignment2
     /// Class <c>Menu</c> models a menu.
     /// </summary>
     public class Menu
-    {   
+    {
         /// <summary>
         /// Instance variable <c>_menuOptions</c> represents the menus options.
         /// </summary>
@@ -35,20 +35,23 @@ namespace DatalogiAssignment2
         /// <param name="canExitProgram"><c>canExitProgram</c> is an optional
         /// parameter that represents if the menu should contain an exit
         /// option. </param>
-        public Menu(List<string> menuOptions, bool canExitProgram = false){
+        public Menu(List<string> menuOptions, bool canExitProgram = false)
+        {
             _menuOptions = menuOptions;
             _canExitProgram = canExitProgram;
         }
 
         /// <value>Property <c>Choice</c> represents the users choice.</value>
-        public int Choice {
+        public int Choice
+        {
             get { return _choice; }
         }
 
         /// <summary>
         /// This method creates the menu.
         /// </summary>
-        public void CreateMenu(){
+        public void CreateMenu()
+        {
             PrintMenuOptions();
             CheckInput();
         }
@@ -56,12 +59,14 @@ namespace DatalogiAssignment2
         /// <summary>
         /// This method prints all the menu options.
         /// </summary>
-        private void PrintMenuOptions(){
+        private void PrintMenuOptions()
+        {
             for (int i = 0; i < _menuOptions.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {_menuOptions[i]}");
             }
-            if (_canExitProgram){
+            if (_canExitProgram)
+            {
                 Console.WriteLine($"{_menuOptions.Count + 1}. Exit");
                 Console.WriteLine(
                     $"Enter a menu selection between 1 - " +
@@ -78,14 +83,16 @@ namespace DatalogiAssignment2
         /// <summary>
         /// This method checks if the users input is valid.
         /// </summary>
-        private void CheckInput(){
+        private void CheckInput()
+        {
             int choice;
             bool isNumeric;
 
             do
             {
                 isNumeric = int.TryParse(Console.ReadLine(), out choice);
-                if (!isNumeric || choice < 1 || choice > _menuOptions.Count){
+                if (!isNumeric || choice < 1 || choice > _menuOptions.Count)
+                {
                     Error("Please enter a valid number.");
                 }
             } while (!isNumeric || choice < 1 || choice > _menuOptions.Count);
@@ -98,7 +105,8 @@ namespace DatalogiAssignment2
         /// </summary>
         /// <param name="errorMsg"><c>errorMsg</c> is the message that should be
         /// printed. </param>
-        private static void Error(string errorMsg){
+        private static void Error(string errorMsg)
+        {
             Console.WriteLine(errorMsg);
             Console.Write("> ");
         }

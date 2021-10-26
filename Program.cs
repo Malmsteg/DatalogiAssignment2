@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace Assignment2
+namespace DatalogiAssignment2
 {
     class Program
     {

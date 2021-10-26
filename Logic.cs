@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System;
 using System.IO;
-namespace Assignment2
+namespace DatalogiAssignment2
 {
     public static class Logic
     {
@@ -111,7 +111,7 @@ namespace Assignment2
         /// <summary>
         /// Testfunktion
         /// </summary>
-        public static void test()
+        private static void test()
         {
             Console.Clear();
             for (int i = 0; i < 3; i++)
@@ -124,8 +124,6 @@ namespace Assignment2
             {
                 Console.WriteLine(item);
             }
-
-
         }
     }
 }
