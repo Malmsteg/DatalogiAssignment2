@@ -12,26 +12,45 @@ namespace DatalogiAssignment2
         /// </param>
         public static void Sort(string[] text)
         {
-            for (int i = 0; i < text.Length; i++)
-            {
-                int lowestPosition = i;
-                for (int j = i + 1; j < text.Length; j++)
-                {
-                    if (string.Compare(text[lowestPosition], text[j]) >= 1)
-                    {
-                        lowestPosition = j;
-                    }
-                }
+            // for (int i = 0; i < text.Length; i++)
+            // {
+            //     int lowestPosition = i;
+            //     for (int j = i + 1; j < text.Length; j++)
+            //     {
+            //         if (string.Compare(text[lowestPosition], text[j]) >= 1)
+            //         {
+            //             lowestPosition = j;
+            //         }
+            //     }
 
-                string tmp = text[i];
-                text[i] = text[lowestPosition];
-                text[lowestPosition] = tmp;
-            }
+            //     string tmp = text[i];
+            //     text[i] = text[lowestPosition];
+            //     text[lowestPosition] = tmp;
+            // }
 
+            // foreach (var item in text)
+            // {
+            //     Console.WriteLine(item);
+            // }
+            Sort(text, text.Length);
             foreach (var item in text)
             {
-                Console.WriteLine(item);
+                System.Console.WriteLine(item);
             }
+        }
+
+        private static void Sort(string[] text, int length)
+        {
+            for (int i = 0; i < length - 1; i++)
+            {
+                if (string.Compare(text[i], text[i + 1]) >= 1)
+                {
+                    string tmp = text[i];
+                    text[i] = text[i + 1];
+                    text[i + 1] = tmp;           
+                }
+            }
+            if (length - 1 > 1) Sort(text, length - 1);
         }
 
         /// <summary>
