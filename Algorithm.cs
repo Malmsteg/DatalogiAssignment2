@@ -8,7 +8,7 @@ namespace DatalogiAssignment2
         /// <summary>
         /// This method sorts an array of strings.
         /// </summary>
-        /// <param name="text"><c>text</c> is the array to array to sort.
+        /// <param name="text"><c>text</c> is the array to sort.
         /// </param>
         public static void Sort(string[] text)
         {

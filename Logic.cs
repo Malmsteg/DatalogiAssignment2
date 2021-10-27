@@ -26,7 +26,7 @@ namespace DatalogiAssignment2
                 Console.WriteLine(item.filename);
                 Console.WriteLine(item.text);
             }
-            Console.ReadLine();
+            // Console.ReadLine();
 
             List<string> menuOptions = new()
             {
