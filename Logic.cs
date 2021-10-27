@@ -146,7 +146,7 @@ namespace DatalogiAssignment2
         public static (string filname, string text) ReadDocument(string path)
         {
             (string filename, string text) result = new();
-            if (String.IsNullOrEmpty(path) || path.Length < 4 || !path.Substring(path[^4]).Equals(".txt") || !File.Exists(path) || new FileInfo(path).Length == 0)
+            if (String.IsNullOrEmpty(path) || path.Length < 4 || !path.Substring(path.Length - 4).Equals(".txt") || !File.Exists(path) || new FileInfo(path).Length == 0)
             {
                 Console.WriteLine($"File {path} was not a valid .txt file.");
             }
