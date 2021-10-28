@@ -21,11 +21,11 @@ namespace DatalogiAssignment2
                     Texts.Add(ReadDocument(arguments[i]));
                 }
             }
-            foreach (var item in Texts)
-            {
-                Console.WriteLine(item.filename);
-                Console.WriteLine(item.text);
-            }
+            // foreach (var item in Texts)
+            // {
+            //     Console.WriteLine(item.filename);
+            //     Console.WriteLine(item.text);
+            // }
             // Console.ReadLine();
 
             List<string> menuOptions = new()
