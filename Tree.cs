@@ -20,12 +20,41 @@ namespace DatalogiAssignment2
                 Root = new Node(searchword, searchResult);
                 return true;
             }
+            Node current = Root, previous = new();
+            while (current is not null)
+            {
+                switch (current.SearchWord.CompareTo(searchword))
+                {
+                    case 1:
+                        previous = current;
+                        current = current.Left;
+                        break;
+                    case 0:
+                        return false; // Same searchword. Return false
+                    case -1:
+                        previous = current;
+                        current = current.Right;
+                        break;
+                }
+            }
+            switch (previous.SearchWord.CompareTo(searchword))
+            {
+                case 1:
+                    previous.Left = new Node(searchword, searchResult);
+                    break;
+                case -1:
+                    previous.Right = new Node(searchword, searchResult);
+                    break;
+            }
+            return true;
+        }
 
+        public List<Node> RetriveAllNodes()
+        {
+            List<Node> result = new() { Root };
 
+            return result;
 
-
-
-            return false;
         }
 
     }
