@@ -4,7 +4,6 @@ namespace DatalogiAssignment2
 {
     public class Tree
     {
-        //TODO: Methods Add, Remove. Maybe more?
         public Node Root { get; set; }
 
         /// <summary>
@@ -49,35 +48,8 @@ namespace DatalogiAssignment2
             return true;
         }
 
-        // public List<Node> RetriveAllNodes()
-        // {
-        //     Node current = Root, previous = new();
-        //     List<Node> result = new() { current };
-
-        //     while (current is not null)
-        //     {
-        //         if (current.Left != null)
-        //         {
-        //             result.IndexOf(current)
-        //             result.Add(current.Left);
-        //         }
-        //         if (current.Right != null)
-        //         {
-        //             result.Add(current.Right);
-        //         }
-        //         previous = current;
-        //         current = current.Left;
-        //     }
-
-        //     return result;
-        // }
-
-        // public Node RetreiveNode()
-        // {
-
-        // }
         /// <summary>
-        /// Returns all nodes under parameter node.
+        /// Returns all nodes under parameter node, together with the parameter node.
         /// </summary>
         /// <param name="node">The node to get all children nodes</param>
         /// <returns>The parameter node, and all of its children</returns>
@@ -104,6 +76,5 @@ namespace DatalogiAssignment2
             }
             return result;
         }
-
     }
 }
