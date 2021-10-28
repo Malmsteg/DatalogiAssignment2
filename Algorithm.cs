@@ -8,35 +8,10 @@ namespace DatalogiAssignment2
         /// <summary>
         /// This method sorts an array of strings.
         /// </summary>
-        /// <param name="text"><c>text</c> is the array to sort.
-        /// </param>
+        /// <param name="text"><c>text</c> is the array to sort.</param>
         public static void Sort(string[] text)
         {
-            // for (int i = 0; i < text.Length; i++)
-            // {
-            //     int lowestPosition = i;
-            //     for (int j = i + 1; j < text.Length; j++)
-            //     {
-            //         if (string.Compare(text[lowestPosition], text[j]) >= 1)
-            //         {
-            //             lowestPosition = j;
-            //         }
-            //     }
-
-            //     string tmp = text[i];
-            //     text[i] = text[lowestPosition];
-            //     text[lowestPosition] = tmp;
-            // }
-
-            // foreach (var item in text)
-            // {
-            //     Console.WriteLine(item);
-            // }
             Sort(text, text.Length);
-            foreach (var item in text)
-            {
-                System.Console.WriteLine(item);
-            }
         }
 
         private static void Sort(string[] text, int length)
