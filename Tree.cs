@@ -49,12 +49,60 @@ namespace DatalogiAssignment2
             return true;
         }
 
-        public List<Node> RetriveAllNodes()
+        // public List<Node> RetriveAllNodes()
+        // {
+        //     Node current = Root, previous = new();
+        //     List<Node> result = new() { current };
+
+        //     while (current is not null)
+        //     {
+        //         if (current.Left != null)
+        //         {
+        //             result.IndexOf(current)
+        //             result.Add(current.Left);
+        //         }
+        //         if (current.Right != null)
+        //         {
+        //             result.Add(current.Right);
+        //         }
+        //         previous = current;
+        //         current = current.Left;
+        //     }
+
+        //     return result;
+        // }
+
+        // public Node RetreiveNode()
+        // {
+
+        // }
+        /// <summary>
+        /// Returns all nodes under parameter node.
+        /// </summary>
+        /// <param name="node">The node to get all children nodes</param>
+        /// <returns>The parameter node, and all of its children</returns>
+        public List<Node> GetNodes(Node node)
         {
-            List<Node> result = new() { Root };
+            List<Node> result = new() { node };
+            List<Node> left = new(), right = new();
+            if (node.Left is not null)
+            {
+                left = GetNodes(node.Left);
+            }
+            if (node.Right is not null)
+            {
+                right = GetNodes(node.Right);
+            }
 
+            for (int i = 0; i < left.Count; i++)
+            {
+                result.Insert(i, left[i]);
+            }
+            foreach (var item in right)
+            {
+                result.Add(item);
+            }
             return result;
-
         }
 
     }
