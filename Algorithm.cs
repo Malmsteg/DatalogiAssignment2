@@ -14,6 +14,12 @@ namespace DatalogiAssignment2
             Sort(text, text.Length);
         }
 
+        /// <summary>
+        /// This method sorts an array of strings.
+        /// </summary>
+        /// <param name="text"><c>text</c> is the array to sort.</param>
+        /// <param name="length"><c>length</c> is the length of the array.
+        /// </param>
         private static void Sort(string[] text, int length)
         {
             for (int i = 0; i < length - 1; i++)
