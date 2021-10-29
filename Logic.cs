@@ -193,6 +193,10 @@ namespace DatalogiAssignment2
             return result;
         }
 
+        /// <summary>
+        /// Prints a menu of all documents.
+        /// </summary>
+        /// <returns>The user's choice.</returns>
         private static int DocumentMenu()
         {
             List<string> documents = new();
