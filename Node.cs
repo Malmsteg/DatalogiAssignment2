@@ -4,7 +4,6 @@ namespace DatalogiAssignment2
 {
     public class Node
     {
-
         /// <summary>
         /// Empty constructor, if needed
         /// </summary>
