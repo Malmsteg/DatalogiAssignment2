@@ -6,44 +6,62 @@ namespace DatalogiAssignment2
     public class Algorithm
     {
         /// <summary>
-        /// This method removes unnecessary characters.
+        /// This method sorts an array of strings.
         /// </summary>
-        /// <param name="text"><c>text</c> is the string to remove characters
-        /// from.</param>
-        /// <returns>The splitted string.</returns>
-        public static string[] SplitStrings(string text){
-            string[] splittedString = text.Split(
-                new string[] {",", ".", " ", ";", ":", "\"", "(", ")", "[", "]",
-                "-", Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries
-                );
-            return splittedString;
+        /// <param name="text"><c>text</c> is the array to sort.</param>
+        public static void Sort(string[] text)
+        {
+            Sort(text, text.Length);
         }
 
         /// <summary>
         /// This method sorts an array of strings.
         /// </summary>
-        /// <param name="text"><c>text</c> is the array to array to sort.
+        /// <param name="text"><c>text</c> is the array to sort.</param>
+        /// <param name="length"><c>length</c> is the length of the array.
         /// </param>
-        public static void Sort(string[] text){
-            for (int i = 0; i < text.Length; i++)
+        private static void Sort(string[] text, int length)
+        {
+            for (int i = 0; i < length - 1; i++)
             {
-                int lowestPosition = i;
-                for (int j = i + 1; j < text.Length; j++)
+                if (string.Compare(text[i], text[i + 1]) >= 1)
                 {
-                    if (string.Compare(text[lowestPosition], text[j]) >= 1){
-                        lowestPosition = j;
-                    } 
+                    string tmp = text[i];
+                    text[i] = text[i + 1];
+                    text[i + 1] = tmp;
                 }
-
-                string tmp = text[i];
-                text[i] = text[lowestPosition];
-                text[lowestPosition] = tmp;
             }
+            if (length - 1 > 1) Sort(text, length - 1);
+        }
 
-            foreach (var item in text)
+        /// <summary>
+        /// Searches for a word in the loaded documents. Returns the number of matches in the documents, and in descending order.
+        /// Variabler för tidskomplexitet är: n (antalet dokument), m (summan av innehållet av alla dokument).
+        /// alternativt
+        /// Tidskomplexiteten är O(n * m), vilket kan förtkortas till O(n * m)
+        /// </summary>
+        /// <param name="searchString">The string to search for</param>
+        /// <returns>A list of files and matches in descending order</returns>
+        public static List<(string filename, int count)> Search(string searchString, List<(string filename, string text)> Texts)
+        {
+            List<(string filename, int count)> result = new();
+
+            foreach (var item in Texts)
             {
-                Console.WriteLine(item);
+                int count = 0;
+                string name = item.filename.Substring(item.filename.LastIndexOf("\\") + 1);
+                string[] arr = Logic.SplitStrings(item.text);
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    if (arr[i].ToLower().Equals(searchString.ToLower()))
+                    {
+                        count++;
+                    }
+                }
+                result.Add((name, count));
             }
+            result.Sort((x, y) => y.count.CompareTo(x.count));
+            return result;
         }
     }
 }
