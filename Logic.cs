@@ -11,6 +11,8 @@ namespace DatalogiAssignment2
         //TODO: 
         static List<(string filename, string text)> Texts = new();
         static List<(string filname, int count)> searchResult = new();
+
+        static Tree tree = new Tree();
         public static void Start()
         {
             string[] arguments = Environment.GetCommandLineArgs();
@@ -21,12 +23,6 @@ namespace DatalogiAssignment2
                     Texts.Add(ReadDocument(arguments[i]));
                 }
             }
-            // foreach (var item in Texts)
-            // {
-            //     Console.WriteLine(item.filename);
-            //     Console.WriteLine(item.text);
-            // }
-            // Console.ReadLine();
 
             List<string> menuOptions = new()
             {
@@ -47,13 +43,11 @@ namespace DatalogiAssignment2
                 {
                     case 1:
                         Texts.Add(ReadDocument());
-                        Console.ReadLine();
                         break;
                     case 2:
                         if (Texts.Count > 0)
                         {
                             SearchAndPrint();
-                            Console.ReadLine();
                         }
                         else
                         {
@@ -87,10 +81,6 @@ namespace DatalogiAssignment2
                         break;
                 }
             }
-            // Avkommentera koden nedan för att köra metoden ReadDocument 3 gånger, och sedan lista i ordning efter söktermen "och"
-            // test();
-            // Console.ReadLine();
-
         }
 
         /// <summary>
@@ -178,24 +168,14 @@ namespace DatalogiAssignment2
             return result.Split(" ")[0];
         }
 
-
-
-        public static void SearchAndPrint()
-        {
-            string searchWord = Input();
-            var temp = Algorithm.Search(searchWord, Texts);
-            foreach (var item in temp)
-            {
-                Console.WriteLine(item);
-                searchResult.Add(item);
-            }
-        }
-
+        /// <summary>
+        /// Prompts user to input an integer
+        /// </summary>
+        /// <returns>An integer greater than 0</returns>
         public static int InputInt()
         {
             int result;
             bool ok = false;
-
             do
             {
                 string input = Console.ReadLine();
@@ -211,16 +191,17 @@ namespace DatalogiAssignment2
             return result;
         }
 
-        private static int DocumentMenu(){
+        private static int DocumentMenu()
+        {
             List<string> documents = new();
 
             Console.Clear();
-            
+
             foreach (var item in Texts)
             {
                 documents.Add(item.filename);
             }
-            
+
             documents.Add("Back to main menu");
 
             Menu documentMenu = new(documents);
@@ -231,21 +212,56 @@ namespace DatalogiAssignment2
         }
 
         /// <summary>
-        /// Testfunktion
+        /// Lets the user search for the occurence of a word in the texts, and prints to screen the result
         /// </summary>
-        private static void test()
+        public static void SearchAndPrint()
         {
-            Console.Clear();
-            for (int i = 0; i < 3; i++)
-            {
-                Texts.Add(ReadDocument());
-            }
-            var list = Algorithm.Search("till", Texts);
-
-            foreach (var item in list)
+            string searchWord = Input();
+            List<(string str, int count)> searchResult = Algorithm.Search(searchWord, Texts);
+            foreach (var item in searchResult)
             {
                 Console.WriteLine(item);
+                Logic.searchResult.Add(item);
             }
+
+            if (tree.Add(searchWord.ToLower(), searchResult))
+            {
+                Console.WriteLine("\n\nThis search result was added to the search result tree");
+            }
+            else
+            {
+                Console.WriteLine("\n\nThis search result was not added to the search result tree.\n" +
+                "Probably you searched it before.");
+            }
+            Console.WriteLine("\n\nPlease press enter to continue");
+            Console.ReadLine();
+        }
+        /// <summary>
+        /// Presents the searches that a user has made during run-time.
+        /// </summary>
+        public static void GetSearchResults()
+        {
+            if (tree.Root is null)
+            {
+                Console.WriteLine("You need to make some searches before using this option.\n\n");
+                Console.WriteLine("\n\nPlease press enter to continue");
+                Console.ReadLine();
+                return;
+            }
+
+            var result = tree.GetNodes(tree.Root);
+            Console.WriteLine("Presenting search results:");
+            foreach (var item in result)
+            {
+                Console.WriteLine(item.SearchWord);
+                foreach (var item2 in item.SearchResult)
+                {
+                    Console.WriteLine(item2.Filename + " counted " + item2.count + " times.");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("\n\nPlease press enter to continue");
+            Console.ReadLine();
         }
     }
 }
