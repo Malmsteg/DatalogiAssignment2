@@ -10,7 +10,7 @@ namespace DatalogiAssignment2
         static List<(string filename, string text)> Texts = new();
         static List<(string filname, int count)> searchResult = new();
 
-        static Tree tree = new Tree();
+        static Tree tree = new();
         public static void Start()
         {
             string[] arguments = Environment.GetCommandLineArgs();
