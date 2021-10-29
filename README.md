@@ -2,6 +2,8 @@
 
 ## Detta är ett program som låter användaren
 * Läsa in .txt-filer
+    * Läses in i programmet antingen genom drag-n-drop på .exefiler (se nedan)
+    * Eller att mata in en exakt sökväg, t.ex. C:\Users\...\file.txt
 * Utföra sökningar på enstaka ord varpå resultatet av sökningar 
     lagras i ett binärt sökträd
 * Skriva ut resultatet av samtliga sökningar till skärmen
