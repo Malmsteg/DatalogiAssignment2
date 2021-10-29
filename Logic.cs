@@ -224,7 +224,7 @@ namespace DatalogiAssignment2
                 Logic.searchResult.Add(item);
             }
 
-            if (tree.Add(searchWord, searchResult))
+            if (tree.Add(searchWord.ToLower(), searchResult))
             {
                 Console.WriteLine("\n\nThis search result was added to the search result tree");
             }
