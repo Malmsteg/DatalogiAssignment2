@@ -50,7 +50,8 @@ namespace DatalogiAssignment2
                         }
                         else
                         {
-                            Console.WriteLine("Mata in textfil i programmet innan du använder den här funktionen.");
+                            Console.WriteLine("Mata in textfil i programmet " + 
+                                "innan du använder den här funktionen.");
                         }
                         break;
                     case 3:
@@ -63,22 +64,26 @@ namespace DatalogiAssignment2
                             string document = Texts[choice - 1].text;
                             string[] text = SplitStrings(document);
                             Algorithm.Sort(text);
-                            Console.Write("Hur många ord skall skrivas ut?\n> ");
+                            Console.Write(
+                                "Hur många ord skall skrivas ut?\n> ");
                             int numOfWords = InputInt();
-                            for (int i = 0; i < numOfWords && i < text.Length; i++)
+                            for (int i = 0; i < numOfWords && i < text.Length; 
+                                i++)
                             {
                                 Console.WriteLine(text[i]);
                             }
                         }
                         else
                         {
-                            Console.WriteLine("Mata in textfil i programmet innan du använder den här funktionen.");
+                            Console.WriteLine("Mata in textfil i programmet " + 
+                                "innan du använder den här funktionen.");
                         }
                         Console.ReadLine();
                         break;
                     case 5:
                         exit = true;
-                        Console.WriteLine("Tack för att du använde det här programmet! :-D");
+                        Console.WriteLine("Tack för att du använde det här " + 
+                            "programmet! :-D");
                         Console.ReadLine();
                         break;
                 }
@@ -95,17 +100,22 @@ namespace DatalogiAssignment2
             bool ok = false;
             while (!ok)
             {
-                Console.WriteLine("Vänligen ange en exakt sökväg för en .txt-fil som du vill läsa in till programmet:\n\n");
+                Console.WriteLine("Vänligen ange en exakt sökväg för en " + 
+                    ".txt-fil som du vill läsa in till programmet:\n\n");
                 string path = Console.ReadLine();
-                if (String.IsNullOrEmpty(path) || path.Length < 5 || !path.Substring(path.Length - 4).Equals(".txt") || !File.Exists(path) || new FileInfo(path).Length == 0)
+                if (String.IsNullOrEmpty(path) || path.Length < 5 || 
+                    !path.Substring(path.Length - 4).Equals(".txt") || 
+                    !File.Exists(path) || new FileInfo(path).Length == 0)
                 {
-                    Console.WriteLine("Vänligen ange en giltig, icke-tom textfil..");
+                    Console.WriteLine("Vänligen ange en giltig, icke-tom " + 
+                        "textfil..");
                 }
                 else
                 {
                     result = (path, File.ReadAllText(path));
                     ok = true;
-                    Console.WriteLine(path.Substring(path.LastIndexOf("\\") + 1) + " har lagts till listan.");
+                    Console.WriteLine(path.Substring(path.LastIndexOf("\\") + 1)
+                         + " har lagts till listan.");
                 }
                 Console.WriteLine("\n\nTryck enter för att fortsätta.");
                 Console.ReadLine();
@@ -122,14 +132,17 @@ namespace DatalogiAssignment2
         public static (string filname, string text) ReadDocument(string path)
         {
             (string filename, string text) result = new();
-            if (String.IsNullOrEmpty(path) || path.Length < 4 || !path.Substring(path.Length - 4).Equals(".txt") || !File.Exists(path) || new FileInfo(path).Length == 0)
+            if (String.IsNullOrEmpty(path) || path.Length < 4 || 
+                !path.Substring(path.Length - 4).Equals(".txt") || 
+                !File.Exists(path) || new FileInfo(path).Length == 0)
             {
                 Console.WriteLine($"Filen {path} var inte en giltig .txt-fil.");
             }
             else
             {
                 result = (path, File.ReadAllText(path));
-                Console.WriteLine(path.Substring(path.LastIndexOf("\\") + 1) + " har lagts till.");
+                Console.WriteLine(path.Substring(path.LastIndexOf("\\") + 1) + 
+                    " har lagts till.");
             }
             Console.WriteLine("\n\nTryck enter för att fortsätta.");
             Console.ReadLine();
@@ -165,7 +178,8 @@ namespace DatalogiAssignment2
             {
                 Console.WriteLine("Skriv in ett sökord.");
                 result = Console.ReadLine().Trim();
-            } while (string.IsNullOrEmpty(result) || string.IsNullOrWhiteSpace(result));
+            } while (string.IsNullOrEmpty(result) || string.IsNullOrWhiteSpace(
+                result));
 
             return result.Split(" ")[0];
         }
@@ -183,7 +197,8 @@ namespace DatalogiAssignment2
                 string input = Console.ReadLine();
                 if (!Int32.TryParse(input, out result) || result < 1)
                 {
-                    Console.WriteLine($"Du måste ange ett nummer större än 0 och mindre än {int.MaxValue}");
+                    Console.WriteLine($"Du måste ange ett nummer större än 0 " +
+                        "och mindre än {int.MaxValue}");
                 }
                 else
                 {
@@ -218,12 +233,14 @@ namespace DatalogiAssignment2
         }
 
         /// <summary>
-        /// Lets the user search for the occurence of a word in the texts, and prints to screen the result
+        /// Lets the user search for the occurence of a word in the texts, and
+        /// prints to screen the result
         /// </summary>
         public static void SearchAndPrint()
         {
             string searchWord = Input();
-            List<(string str, int count)> searchResult = Algorithm.Search(searchWord, Texts);
+            List<(string str, int count)> searchResult = Algorithm.Search(
+                searchWord, Texts);
             foreach (var item in searchResult)
             {
                 Console.WriteLine(item);
@@ -236,8 +253,9 @@ namespace DatalogiAssignment2
             }
             else
             {
-                Console.WriteLine("\n\nSökresultatet lades inte till sökträdet.\n" +
-                "Förmodligen för att du har sökt efter samma sak förut.");
+                Console.WriteLine("\n\nSökresultatet lades inte till " +
+                    "sökträdet.\nFörmodligen för att du har sökt efter samma " +
+                    " sak förut.");
             }
             Console.WriteLine("\n\nTryck enter för att fortsätta.");
             Console.ReadLine();
@@ -249,7 +267,8 @@ namespace DatalogiAssignment2
         {
             if (tree.Root is null)
             {
-                Console.WriteLine("Du behöver utföra några sökningar innan du använder den här funktionen.\n\n");
+                Console.WriteLine("Du behöver utföra några sökningar innan du" +
+                    " använder den här funktionen.\n\n");
                 Console.WriteLine("\n\nTryck enter för att fortsätta.");
                 Console.ReadLine();
                 return;
@@ -262,7 +281,8 @@ namespace DatalogiAssignment2
                 Console.WriteLine(item.SearchWord);
                 foreach (var item2 in item.SearchResult)
                 {
-                    Console.WriteLine(item2.Filename + " med " + item2.count + " sökträffar.");
+                    Console.WriteLine(item2.Filename + " med " + item2.count + 
+                        " sökträffar.");
                 }
                 Console.WriteLine();
             }

@@ -7,12 +7,14 @@ namespace DatalogiAssignment2
         public Node Root { get; set; }
 
         /// <summary>
-        /// Adds a new Node to the tree. If the tree is empty, sets the Node as Root
+        /// Adds a new Node to the tree. If the tree is empty, sets the Node as
+        /// Root
         /// </summary>
         /// <param name="searchword">The search word</param>
         /// <param name="searchResult">The result of the search</param>
         /// <returns>True if the Node was added, false if it failed</returns>
-        public bool Add(string searchword, List<(string FileName, int count)> searchResult)
+        public bool Add(
+            string searchword, List<(string FileName, int count)> searchResult)
         {
             if (Root is null) // Sets input as Root if Root is empty.
             {
@@ -49,7 +51,8 @@ namespace DatalogiAssignment2
         }
 
         /// <summary>
-        /// Returns all nodes under parameter node, together with the parameter node.
+        /// Returns all nodes under parameter node, together with the parameter
+        /// node.
         /// </summary>
         /// <param name="node">The node to get all children nodes</param>
         /// <returns>The parameter node, and all of its children</returns>
