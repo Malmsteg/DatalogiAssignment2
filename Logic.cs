@@ -32,8 +32,8 @@ namespace DatalogiAssignment2
             {
                 "Läs in ett txt-dokument i programmet",
                 "Sök efter ett antal förekomster av ord i texter.",
-                "Sortera orden i dokumenten i bokstavsordning.",
-                "Skriv ut de X antal första orden",
+                "Sortera orden i dokumenten i bokstavsordning och skriv ut de" +
+                " X antal första orden.",
                 "Avsluta programmet"
             };
             Menu menu = new Menu(menuOptions);
@@ -63,9 +63,15 @@ namespace DatalogiAssignment2
                     case 3:
                         if (Texts.Count > 0)
                         {
-                            foreach (var item in Texts)
+                            int choice = DocumentMenu();
+                            string document = Texts[choice - 1].text;
+                            string[] text = SplitStrings(document);
+                            Algorithm.Sort(text);
+                            Console.Write("How many words should be printed?\n> ");
+                            int numOfWords = InputInt();
+                            for (int i = 0; i < numOfWords && i < text.Length; i++)
                             {
-                                Algorithm.Sort(SplitStrings(item.text));
+                                Console.WriteLine(text[i]);
                             }
                         }
                         else
@@ -75,28 +81,6 @@ namespace DatalogiAssignment2
                         Console.ReadLine();
                         break;
                     case 4:
-                        if (Texts.Count > 0)
-                        {
-                            int count = InputInt();
-                            foreach (var item in Texts)
-                            {
-                                Console.Clear();
-                                Console.WriteLine("The first " + count + " words in " + item.filename.Substring(item.filename.LastIndexOf("\\") + 1) + "\n");
-                                var temp = SplitStrings(item.text);
-                                for (int i = 0; i < count || i < temp.Length; i++)
-                                {
-                                    Console.Write(temp[i] + " ");
-                                }
-                                Console.WriteLine("\n\n");
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("Please input at least one .txt-file before using this function.");
-                        }
-                        Console.ReadLine();
-                        break;
-                    case 5:
                         exit = true;
                         Console.WriteLine("Thank you for using this program! :-)");
                         Console.ReadLine();
@@ -225,6 +209,25 @@ namespace DatalogiAssignment2
                 }
             } while (!ok);
             return result;
+        }
+
+        private static int DocumentMenu(){
+            List<string> documents = new();
+
+            Console.Clear();
+            
+            foreach (var item in Texts)
+            {
+                documents.Add(item.filename);
+            }
+            
+            documents.Add("Back to main menu");
+
+            Menu documentMenu = new(documents);
+            documentMenu.CreateMenu();
+            if (documentMenu.Choice == documents.Count) Start();
+
+            return documentMenu.Choice;
         }
 
         /// <summary>
