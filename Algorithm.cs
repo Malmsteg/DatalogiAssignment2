@@ -47,7 +47,7 @@ namespace DatalogiAssignment2
                 {
                     string tmp = text[i];
                     text[i] = text[i + 1];
-                    text[i + 1] = tmp;           
+                    text[i + 1] = tmp;
                 }
             }
             if (length - 1 > 1) Sort(text, length - 1);
@@ -55,8 +55,9 @@ namespace DatalogiAssignment2
 
         /// <summary>
         /// Searches for a word in the loaded documents. Returns the number of matches in the documents, and in descending order.
-        /// Variabler för tidskomplexitet är: n1 (antalet dokument), n2 (summan av innehållet av alla dokument).
-        /// Tidskomplexiteten är O(2n1 + n2), vilket kan förkortas till O(n)
+        /// Variabler för tidskomplexitet är: n (antalet dokument), m (summan av innehållet av alla dokument).
+        /// alternativt
+        /// Tidskomplexiteten är O(n * m), vilket kan förtkortas till O(n * m)
         /// </summary>
         /// <param name="searchString">The string to search for</param>
         /// <returns>A list of files and matches in descending order</returns>
