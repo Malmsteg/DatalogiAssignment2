@@ -35,21 +35,25 @@ namespace DatalogiAssignment2
         }
 
         /// <summary>
-        /// Searches for a word in the loaded documents. Returns the number of matches in the documents, and in descending order.
-        /// Variabler för tidskomplexitet är: n (antalet dokument), m (summan av innehållet av alla dokument).
+        /// Searches for a word in the loaded documents. Returns the number of
+        /// matches in the documents, and in descending order.
+        /// Variabler för tidskomplexitet är: n (antalet dokument), m (summan av
+        /// innehållet av alla dokument).
         /// alternativt
         /// Tidskomplexiteten är O(n * m), vilket kan förtkortas till O(n * m)
         /// </summary>
         /// <param name="searchString">The string to search for</param>
         /// <returns>A list of files and matches in descending order</returns>
-        public static List<(string filename, int count)> Search(string searchString, List<(string filename, string text)> Texts)
+        public static List<(string filename, int count)> Search(
+            string searchString, List<(string filename, string text)> Texts)
         {
             List<(string filename, int count)> result = new();
 
             foreach (var item in Texts)
             {
                 int count = 0;
-                string name = item.filename.Substring(item.filename.LastIndexOf("\\") + 1);
+                string name = item.filename.Substring(
+                    item.filename.LastIndexOf("\\") + 1);
                 string[] arr = Logic.SplitStrings(item.text);
                 for (int i = 0; i < arr.Length; i++)
                 {

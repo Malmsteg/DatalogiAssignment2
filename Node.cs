@@ -15,7 +15,8 @@ namespace DatalogiAssignment2
         /// </summary>
         /// <param name="searchWord">The word that was searched for</param>
         /// <param name="searchResult">The result of the search</param>
-        public Node(string searchWord, List<(string Filename, int count)> searchResult)
+        public Node(
+            string searchWord, List<(string Filename, int count) > searchResult)
         {
             SearchWord = searchWord;
             SearchResult = searchResult;
