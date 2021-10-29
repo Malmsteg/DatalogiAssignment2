@@ -31,7 +31,7 @@ namespace DatalogiAssignment2
                 " X antal första orden.",
                 "Avsluta programmet"
             };
-            Menu menu = new Menu(menuOptions);
+            Menu menu = new(menuOptions);
 
             bool exit = false;
             while (!exit)
