@@ -20,6 +20,13 @@ namespace DatalogiAssignment2
             SearchWord = searchWord;
             SearchResult = searchResult;
         }
+        /// <summary>
+        /// Information is stored as a searchword representing a 
+        /// search word, and filename and count as a tuple as searchresult
+        /// Node Left is a child Node to the left
+        /// Node Right is a child Node to the right
+        /// </summary>
+        /// <value></value>
         public string SearchWord { get; set; }
         public List<(string Filename, int count)> SearchResult { get; set; }
         public Node Left { get; set; }
